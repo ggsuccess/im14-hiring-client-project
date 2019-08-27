@@ -7,3 +7,5 @@ const Home = () => {
     <button>게시판</button>
   </div>
 }
+
+export default Home;

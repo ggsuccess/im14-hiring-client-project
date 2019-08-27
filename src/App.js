@@ -1,5 +1,7 @@
 import React from 'react';
 // import './App.css';
+import Home from './Home';
+import User from './User';
 
 class App extends React.Component{
   constructor(props){
@@ -9,22 +11,20 @@ class App extends React.Component{
     }
   }
   componentDidMount(){
-    fetch('https://koreanjson.com/users').then(res => 
-      res.json()
-    ).then(data => {
-      this.setState({
-        datalist : data
-      })
-    })
+    console.log('componentdidmount동작?')
+    window.fetch('https://koreanjson.com/users')
+    .then(res => res.json())
+    .then(json => console.log(json))
+    .then(data => this.setState({datalist : data}))
+    .catch(err => console.log('koreanjson api요청에러:'+err))
   }
-
+    
   render(){
-    const data = this.state.datalist;
-    console.log(data);
     return(
       <div>
-        {data.map(item,index => {
-          item && <div> <p keys={index} data={item}></p></div>
+        <Home/>
+        {this.state.datalist.map(item => {
+          item &&  <User keys={this.state.datalist.id} data={item} users={item.user}/>
         })}
       </div>
     )
