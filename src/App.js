@@ -1,18 +1,25 @@
 import React from 'react';
-// import './App.css';
 import Home from './Home';
 import User from './User';
+import {Route} from 'react-router-dom';
+import './style.css'
 
 class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      datalist : false
+      datalist : {
+        id : '',
+        name : '',
+        username : '',
+        email : '',
+        phone : ''
+      }
     }
   }
   componentDidMount(){
-    console.log('componentdidmount동작?')
-    window.fetch('https://koreanjson.com/users')
+    // console.log('componentdidmount동작?')
+    fetch('https://koreanjson.com/users')
     .then(res => res.json())
     .then(json => console.log(json))
     .then(data => this.setState({datalist : data}))
@@ -20,12 +27,15 @@ class App extends React.Component{
   }
     
   render(){
+    const data = this.state.datalist;
+    console.log(data);
     return(
       <div>
-        <Home/>
-        {this.state.datalist.map(item => {
-          item &&  <User keys={this.state.datalist.id} data={item} users={item.user}/>
+        {data.map(item => {
+          item &&  <User keys={item.id} data={item} users={item.user}/>
         })}
+        <Route exact={true} path='/' component={Home} />
+        <Route path='/users' component={User}/>
       </div>
     )
   }
