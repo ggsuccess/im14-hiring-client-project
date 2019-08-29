@@ -8,3 +8,9 @@
   border-radius: 30%;
   margin-top: 10%;
 }
+button#todoBtn{
+  background: blue;
+}
+button#boardBtn{
+  background: green;
+}

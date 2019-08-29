@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/users', (req, res) => {
-
+  res.status(201).send();
 })
 app.listen(3000,() => {
   `port 3000 server on`

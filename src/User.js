@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Route,Link} from 'react-router-dom';
 import UserInfo from './UserInfo';
+import axios from 'axios';
 
 class User extends Component{
   constructor(props){
@@ -10,25 +11,26 @@ class User extends Component{
     }
   }
   componentDidMount() {
-    fetch("https://koreanjson.com/user")
-    .then(res => res.json())
-    .then(data => console.log(data))
+    axios.get('https://koreanjson.com/users')
     .then(data => this.setState({users : data}))
-    .catch(err => console.log(err))
+    .catch(err => console.log('서버요청err:',err))
   }
   render(){
     const list = this.state.users;
+    console.log(list)
     return(
       <div>
         <div>
           {list.map(item => item && <UserInfo key={item.id} datalist={item}/>)}
         </div>
         {list}
-        <Link to='/'>선택</Link>
+        
+        <Link to='/userInfo'>선택</Link>
         <Link to='/'>뒤로 가기</Link>
         <div>
         <Link to='/'>home으로가기</Link>
         </div>
+       
       </div>
     )
   }
